@@ -1,0 +1,15 @@
+services:
+
+  mysql:
+    build: ./docker
+    container_name: mysql-peliculas
+    ports:
+      - "3306:3306"
+
+  peliculas-service:
+    build: ./peliculas-service
+    container_name: peliculas-service
+
+  resenas-service:
+    build: ./resenas-service
+    container_name: resenas-service

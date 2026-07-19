@@ -1,0 +1,92 @@
+{
+    "realm": "peliculas-realm",
+    "enabled": true,
+    "displayName": "Peliculas Realm",
+    "roles": {
+        "realm": [
+            {
+                "name": "ADMIN"
+            },
+            {
+                "name": "USER"
+            }
+        ]
+    },
+    "clients": [
+        {
+            "clientId": "peliculas-client",
+            "name": "Peliculas Login Client",
+            "enabled": true,
+            "protocol": "openid-connect",
+            "publicClient": false,
+            "secret": "peliculas-client-secret",
+            "standardFlowEnabled": true,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": false,
+            "redirectUris": [
+                "http://localhost:8081/login/oauth2/code/keycloak"
+            ],
+            "webOrigins": [
+                "http://localhost:8081"
+            ],
+            "attributes": {
+                "post.logout.redirect.uris": "http://localhost:8081/*"
+            },
+            "defaultClientScopes": [
+                "profile",
+                "email",
+                "roles"
+            ]
+        },
+        {
+            "clientId": "peliculas-api",
+            "name": "Peliculas Resource Server",
+            "enabled": true,
+            "protocol": "openid-connect",
+            "publicClient": false,
+            "bearerOnly": false,
+            "secret": "peliculas-api-secret",
+            "standardFlowEnabled": false,
+            "directAccessGrantsEnabled": true,
+            "serviceAccountsEnabled": true
+        }
+    ],
+    "users": [
+        {
+            "username": "admin",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Administrador",
+            "lastName": "Sistema",
+            "email": "admin@peliculas.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "admin123",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "ADMIN"
+            ]
+        },
+        {
+            "username": "cliente",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Usuario",
+            "lastName": "Cliente",
+            "email": "cliente@peliculas.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "cliente123",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "USER"
+            ]
+        }
+    ]
+}

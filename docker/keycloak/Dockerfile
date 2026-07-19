@@ -11,7 +11,7 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:26.5.5
 
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
-COPY realms/peliculas-realm.json /opt/keycloak/data/import/peliculas-realm.json
+COPY realms/peliculas-realm-realm.json /opt/keycloak/data/import/peliculas-realm-realm.json
 
 ENV KC_BOOTSTRAP_ADMIN_USERNAME=admin \
     KC_BOOTSTRAP_ADMIN_PASSWORD=admin \

@@ -4,9 +4,10 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.resenas.resenas.service.config.FeignConfig;
 import com.resenas.resenas.service.dto.PeliculaResponse;
 
-@FeignClient(name="peliculas-service"//,url="http://localhost:8081" 
+@FeignClient(name="peliculas-service", configuration = FeignConfig.class//,url="http://localhost:8081" 
 )
 public interface PeliculaClient {
 	@GetMapping("/v1/peliculas/{id}")

@@ -5,11 +5,53 @@ services:
     container_name: mysql-peliculas
     ports:
       - "3306:3306"
+    restart: unless-stopped
+
+  keycloak:
+    build: ./docker/keycloak
+    container_name: keycloak
+    ports:
+      - "8180:8080"
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  ms-configserver:
+    build: ./ms-configserver
+    container_name: ms-configserver
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  ms-descubridor:
+    build: ./ms-descubridor
+    container_name: ms-descubridor
+    ports:
+      - "8761:8761"
+    depends_on:
+      - ms-configserver
+    restart: unless-stopped
 
   peliculas-service:
     build: ./peliculas-service
     container_name: peliculas-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+      - keycloak
+      - ms-configserver
+      - ms-descubridor
+    restart: unless-stopped
 
   resenas-service:
     build: ./resenas-service
     container_name: resenas-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+      - keycloak
+      - ms-configserver
+      - ms-descubridor
+    restart: unless-stopped
